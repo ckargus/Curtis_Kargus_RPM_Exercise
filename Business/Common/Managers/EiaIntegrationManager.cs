@@ -36,6 +36,7 @@
                 if (httpResponse.IsSuccessStatusCode)
                 { 
                     result = await DeserializeWeeklyAverageUsDieselPrices(httpResponse).ConfigureAwait(false);
+                    this.logger.LogInformation("Finished getting weekly average us diesel prices from EIA Endpoint");
                 }
                 else
                 {
@@ -47,7 +48,6 @@
                 this.logger.LogError(ex, $"Exception occurred in {nameof(this.GetWeeklyAverageUsDieselPrices)}");
                 throw;
             }
-            this.logger.LogInformation("Finished getting weekly average us diesel prices from EIA Endpoint");
             return result;
         }
 

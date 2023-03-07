@@ -13,7 +13,7 @@
         private readonly ApplicationDbContext applicationDbContext;
         private readonly AbstractValidator<WeeklyAverageUsDieselPriceCreateModel> createModelValidator;
         private readonly ILogger<WeeklyAverageUsDieselPriceCreateValidationManager> logger;
-        private Dictionary<DateOnly, DataAccess.Entities.WeeklyAverageUsDieselPrice> weeklyAvergeUsDieselPricesFromDbByWeekOf;
+        private Dictionary<DateOnly, DataAccess.Entities.WeeklyAverageUsDieselPrice> weeklyAverageUsDieselPricesFromDbByWeekOf;
 
         public WeeklyAverageUsDieselPriceCreateValidationManager(
             AbstractValidator<WeeklyAverageUsDieselPriceCreateModel> createModelValidator,
@@ -82,7 +82,7 @@
                 return;
             }
 
-            if (this.weeklyAvergeUsDieselPricesFromDbByWeekOf.TryGetValue(model.WeekOf, out DataAccess.Entities.WeeklyAverageUsDieselPrice _))
+            if (this.weeklyAverageUsDieselPricesFromDbByWeekOf.TryGetValue(model.WeekOf, out DataAccess.Entities.WeeklyAverageUsDieselPrice _))
             {
                 this.logger.LogError($"{nameof(WeeklyAverageUsDieselPriceCreateModel)} has the error {ValidationErrorCodes.WeeklyAverageUsDieselPriceAlreadyExists}");
                 validationResultModel.isValid = false;
@@ -100,7 +100,7 @@
         {
             try
             {
-                this.weeklyAvergeUsDieselPricesFromDbByWeekOf = await this.applicationDbContext
+                this.weeklyAverageUsDieselPricesFromDbByWeekOf = await this.applicationDbContext
                 .Set<DataAccess.Entities.WeeklyAverageUsDieselPrice>()
                 .ToDictionaryAsync(x => DateOnly.FromDateTime(x.WeekOf));
                
